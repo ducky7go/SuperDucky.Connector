@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\Local.props" Condition="Exists('../Local.props')" />
+  <PropertyGroup>
+    <ModName>SuperDucky.Connector</ModName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ducky.Sdk">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
