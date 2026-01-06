@@ -59,6 +59,15 @@ jobs:
       - name: Fetch build dependencies
         run: bash scripts/fetch_build_dependency.sh
 
+      - name: Install dotnet script
+        run: dotnet tool install --global dotnet-script --version 1.5.0
+
+      - name: Install dotnet-ilrepack
+        run: dotnet tool install --global dotnet-ilrepack --version 2.0.44
+
+      - name: Add tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
       - name: Build mod
         run: |
           VERSION="${{ steps.get_version.outputs.version }}"
@@ -92,7 +101,7 @@ jobs:
         uses: ducky7go/action-ducky-nuget@v1.1.1
         id: publish
         with:
-          mod_folder_path: './SuperDucky.Connector'
+          mod_folder_path: "artifacts/Mods/SuperDucky.Connector/"
           nuget_api_key: ${{ steps.login.outputs.NUGET_API_KEY }}
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
 
