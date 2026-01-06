@@ -79,7 +79,7 @@ jobs:
         uses: ducky7go/action-ducky-nuget@v1.1.1
         id: pack
         with:
-          mod_folder_path: './SuperDucky.Connector'
+          mod_folder_path: "artifacts/Mods/SuperDucky.Connector/"
           push: false
 
       - name: Upload build artifacts

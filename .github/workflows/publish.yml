@@ -101,7 +101,7 @@ jobs:
         uses: ducky7go/action-ducky-nuget@v1.1.1
         id: publish
         with:
-          mod_folder_path: './SuperDucky.Connector'
+          mod_folder_path: "artifacts/Mods/SuperDucky.Connector/"
           nuget_api_key: ${{ steps.login.outputs.NUGET_API_KEY }}
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
 
