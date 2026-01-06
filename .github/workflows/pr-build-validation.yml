@@ -71,9 +71,9 @@ jobs:
         run: |
           VERSION="${{ steps.gitversion.outputs.fullSemVer }}"
           # Update version in assets/info.ini
-          sed -i "s/^version = .*/version = $VERSION/" SuperDucky.Connector/assets/info.ini
+          sed -i "s/^version = .*/version = $VERSION/" artifacts/Mods/SuperDucky.Connector/assets/info.ini
           echo "Updated info.ini version to: $VERSION"
-          cat SuperDucky.Connector/assets/info.ini
+          cat artifacts/Mods/SuperDucky.Connector/assets/info.ini
 
       - name: Pack NuGet (validation only)
         uses: ducky7go/action-ducky-nuget@v1.1.1
