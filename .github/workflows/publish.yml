@@ -59,6 +59,15 @@ jobs:
       - name: Fetch build dependencies
         run: bash scripts/fetch_build_dependency.sh
 
+      - name: Install dotnet script
+        run: dotnet tool install --global dotnet-script --version 1.5.0
+
+      - name: Install dotnet-ilrepack
+        run: dotnet tool install --global dotnet-ilrepack --version 2.0.44
+
+      - name: Add tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
       - name: Build mod
         run: |
           VERSION="${{ steps.get_version.outputs.version }}"
