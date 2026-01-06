@@ -2,7 +2,7 @@ name: Nuget Release
 
 on:
   push:
-    tags: ["v*.*.*"]
+    tags: ["*.*.*"]
     branches:
       - main
 
