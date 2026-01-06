@@ -8,4 +8,16 @@
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <!-- CI/CD Build Configuration -->
+  <!-- Ducky.Sdk 0.1.8+ automatically detects Git root and sets:
+       - ManagedDirectory = $(GitRootPath)/Managed/
+       - ModsDirectory = $(GitRootPath)/artifacts/Mods/
+       The mod will be built and deployed to artifacts/Mods/ModName/ -->
+  <PropertyGroup Condition=" '$(CI)' == 'true' Or '$(CI)' == 'True' Or '$(GITHUB_ACTIONS)' == 'true' ">
+    <!-- Clear SteamFolder to prevent DuckovFolder from being set -->
+    <SteamFolder></SteamFolder>
+    <!-- Ensure DuckovFolder is empty so SDK uses Git root defaults -->
+    <DuckovFolder Condition=" '$(DuckovFolder)' == '' "></DuckovFolder>
+  </PropertyGroup>
 </Project>

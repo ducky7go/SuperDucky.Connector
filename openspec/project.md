@@ -8,7 +8,7 @@ SuperDucky.Connector is a game mod for "Escape from Duckov" that exports compreh
 ## Tech Stack
 **Core Technologies**:
 - **.NET Standard 2.1** / C# - Mod framework targeting
-- **Ducky.Sdk** (0.1.7-dev.2) - Game modding SDK
+- **Ducky.Sdk** (0.1.8) - Game modding SDK with automatic Git root detection
 - **Lib.Harmony** (2.4.1) - Runtime patching for game method interception
 - **Unity Engine** - Game engine integration (Texture2D, Sprite, SceneLoader)
 
@@ -97,6 +97,14 @@ ModBehaviour (Entry Point)
 - `.github/workflows/release-drafter.yml` - Automatic release notes generation
 - `.github/workflows/publish.yml` - NuGet package build and publish
 
+**Ducky.Sdk 0.1.8+ CI Support**:
+The SDK automatically detects Git repository root in CI environments:
+- When `CI=true` and `DuckovFolder` is empty:
+  - `ManagedDirectory` = `$(GitRootPath)/Managed/`
+  - `ModsDirectory` = `$(GitRootPath)/artifacts/Mods/`
+- No manual path configuration needed in `Directory.Build.props`
+- Simply ensure `SteamFolder` and `DuckovFolder` are not set in CI
+
 **Release Process**:
 1. Create and push version tag: `git tag v1.0.0 && git push origin v1.0.0`
 2. Release Drafter automatically generates release notes from commit history
@@ -181,6 +189,7 @@ ModBehaviour (Entry Point)
 - .NET SDK 9.0.301+ (for compilation)
 - MSBuild (Microsoft.Build 17.9.0)
 - GitVersion (6.x) - Semantic versioning for CI/CD
+- Game dependencies: `scripts/fetch_build_dependency.sh` downloads Managed assemblies from ducky7go/sdk_build_dependency
 
 **Integration Points**:
 - Game's `ItemAssetsCollection` - Source of item encyclopedia data
