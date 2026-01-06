@@ -86,9 +86,9 @@ jobs:
         run: |
           VERSION="${{ steps.get_version.outputs.version }}"
           # Update version in assets/info.ini
-          sed -i "s/^version = .*/version = $VERSION/" artifacts/Mods/SuperDucky.Connector/assets/info.ini
+          sed -i "s/^version = .*/version = $VERSION/" artifacts/Mods/SuperDucky.Connector/info.ini
           echo "Updated info.ini version to: $VERSION"
-          cat artifacts/Mods/SuperDucky.Connector/assets/info.ini
+          cat artifacts/Mods/SuperDucky.Connector/info.ini
 
       - name: NuGet login (OIDC)
         if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
