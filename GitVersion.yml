@@ -1,0 +1,16 @@
+branches:
+  main:
+    mode: ContinuousDelivery
+    regex: ^main$
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    is-main-branch: true
+  feature:
+    regex: ^features?[/-](?<BranchName>.+)
+    label: "{BranchName}"
+    increment: Minor
+    source-branches: ["main"]
+ignore:
+  sha: []

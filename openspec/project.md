@@ -27,6 +27,7 @@ SuperDucky.Connector is a game mod for "Escape from Duckov" that exports compreh
 - OpenSpec CLI for specification-driven development
 - Claude Code with OpenSpec integration
 - MCP servers for extended capabilities
+- GitHub Actions for CI/CD automation
 
 **Testing Framework**:
 - NUnit (4.3.2) - Unit testing
@@ -91,6 +92,30 @@ ModBehaviour (Entry Point)
 - Reference change IDs in commits: `apply: add-feature-name`
 - Archive changes after deployment: `openspec archive <change-id>`
 
+### CI/CD Pipeline
+**GitHub Actions Workflows**:
+- `.github/workflows/release-drafter.yml` - Automatic release notes generation
+- `.github/workflows/publish.yml` - NuGet package build and publish
+
+**Release Process**:
+1. Create and push version tag: `git tag v1.0.0 && git push origin v1.0.0`
+2. Release Drafter automatically generates release notes from commit history
+3. Build workflow triggers on tag push:
+   - GitVersion calculates semantic version
+   - `dotnet pack` creates NuGet package
+   - Package uploaded as artifact (30-day retention)
+   - Published to NuGet.org via `NUGET_KEY` secret
+4. Main branch pushes generate dev builds (X.Y.Z-dev.N) without publishing
+
+**Secrets Configuration**:
+- `NUGET_KEY` - NuGet.org API key (required for publishing)
+- `MYGET_API_KEY` - (Optional) MyGet feed API key
+
+**Version Management**:
+- GitVersion (Mainline mode) replaces MinVer for semantic versioning
+- Tag format: `v1.2.3` (formal releases) or `1.2.3`
+- Dev builds: Auto-increment based on commits since last tag
+
 ## Domain Context
 **Project Domain**: Game mod for data extraction and external integration
 
@@ -153,9 +178,9 @@ ModBehaviour (Entry Point)
 - MCP servers: shadcn, web-reader, web-search-prime, 4.5v-mcp, zai-mcp-server
 
 **Build Dependencies**:
-- .NET SDK (for compilation)
+- .NET SDK 9.0.301+ (for compilation)
 - MSBuild (Microsoft.Build 17.9.0)
-- MinVer (6.0.0) - Automatic versioning
+- GitVersion (6.x) - Semantic versioning for CI/CD
 
 **Integration Points**:
 - Game's `ItemAssetsCollection` - Source of item encyclopedia data
