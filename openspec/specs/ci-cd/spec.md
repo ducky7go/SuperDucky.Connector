@@ -1,5 +1,8 @@
-## ADDED Requirements
+# ci-cd Specification
 
+## Purpose
+TBD - created by archiving change automated-build-and-release-workflow. Update Purpose after archive.
+## Requirements
 ### Requirement: Automated Release Note Generation
 
 The system SHALL automatically generate and maintain release notes using GitHub Actions Release Drafter when commits are pushed to the main branch or pull requests are merged.
@@ -116,20 +119,3 @@ The system SHALL provide documentation for setting up and troubleshooting the au
 - **WHEN** a workflow fails
 - **THEN** documentation includes common failure scenarios and resolution steps (e.g., secret misconfiguration, version calculation errors)
 
-## MODIFIED Requirements
-
-### Requirement: Build Dependencies
-
-The project SHALL use GitVersion for automatic version calculation in CI/CD environments and local development.
-
-#### Scenario: CI/CD version calculation
-- **WHEN** GitHub Actions build workflow executes
-- **THEN** GitVersion determines the package version from git history (replacing MinVer)
-
-#### Scenario: Local build versioning
-- **WHEN** a developer builds locally using `dotnet build`
-- **THEN** GitVersion calculates version based on current commit (requires GitVersion.Tool installed)
-
-#### Scenario: Version consistency
-- **WHEN** the same commit is built in CI/CD and locally
-- **THEN** the calculated version is identical between environments
