@@ -66,7 +66,7 @@ jobs:
           cat SuperDucky.Connector/assets/info.ini
 
       - name: Pack NuGet (validation only)
-        uses: ducky7go/action-ducky-nuget@v1
+        uses: ducky7go/action-ducky-nuget@v1.1.1
         id: pack
         with:
           mod_folder_path: './SuperDucky.Connector'

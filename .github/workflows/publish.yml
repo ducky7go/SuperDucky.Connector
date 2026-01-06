@@ -89,7 +89,7 @@ jobs:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Pack and publish to NuGet
-        uses: ducky7go/action-ducky-nuget@v1
+        uses: ducky7go/action-ducky-nuget@v1.1.1
         id: publish
         with:
           mod_folder_path: './SuperDucky.Connector'
