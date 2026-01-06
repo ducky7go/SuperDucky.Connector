@@ -1,0 +1,108 @@
+name: PR Build Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('Directory.Packages.props') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v4.2.0
+        with:
+          versionSpec: "6.x"
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v4.2.0
+        with:
+          configFilePath: GitVersion.yml
+
+      - name: Fetch build dependencies
+        run: bash scripts/fetch_build_dependency.sh
+
+      - name: Build mod
+        run: |
+          VERSION="${{ steps.gitversion.outputs.fullSemVer }}"
+          # Set CI environment variable to trigger Directory.Build.props configuration
+          export CI=true
+          dotnet build SuperDucky.Connector/SuperDucky.Connector.csproj \
+            -p:PackageVersion=$VERSION \
+            -p:Configuration=Release
+
+      - name: Install Mono (for ducky-cli)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mono-complete
+
+      - name: Update info.ini with PR version
+        run: |
+          VERSION="${{ steps.gitversion.outputs.fullSemVer }}"
+          # Update version in assets/info.ini
+          sed -i "s/^version = .*/version = $VERSION/" SuperDucky.Connector/assets/info.ini
+          echo "Updated info.ini version to: $VERSION"
+          cat SuperDucky.Connector/assets/info.ini
+
+      - name: Pack NuGet (validation only)
+        uses: ducky7go/action-ducky-nuget@v1.1.1
+        id: pack
+        with:
+          mod_folder_path: './SuperDucky.Connector'
+          push: false
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-validation-${{ steps.gitversion.outputs.fullSemVer }}
+          path: ${{ steps.pack.outputs.package_path }}
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: Comment PR with build results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ steps.gitversion.outputs.fullSemVer }}';
+            const status = '${{ job.status }}';
+            const packagePath = '${{ steps.pack.outputs.package_path }}';
+            const artifactUrl = `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+
+            let comment = `## 🔨 PR Build Validation\n\n`;
+            comment += `**Version:** ${version}\n`;
+            comment += `**Status:** ${status === 'success' ? '✅ Success' : '❌ Failed'}\n`;
+            comment += `**Commit:** ${{ github.sha }}\n`;
+            if (packagePath) {
+              comment += `**Package:** ${packagePath.split('/').pop()}\n`;
+            }
+            comment += `\n📦 [View build artifacts](${artifactUrl})\n`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
