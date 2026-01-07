@@ -43,7 +43,7 @@ public class FileStorageService : IDisposable
             CreateDirectoryIfNotExists(_historyPath);
 
             // Create digit folders (0-9) for item distribution
-            for (int i = 0; i <= 9; i++)
+            for (var i = 0; i <= 9; i++)
             {
                 CreateDirectoryIfNotExists(Path.Combine(_itemsPath, i.ToString()));
             }
@@ -78,10 +78,10 @@ public class FileStorageService : IDisposable
     /// </summary>
     public string GetItemPath(int itemId, int saveSlot = 1)
     {
-        int digit = GetFolderDigit(itemId);
-        string saveSlotPath = Path.Combine(_itemsPath, saveSlot.ToString());
-        string digitPath = Path.Combine(saveSlotPath, digit.ToString());
-        string itemPath = Path.Combine(digitPath, itemId.ToString());
+        var digit = GetFolderDigit(itemId);
+        var saveSlotPath = Path.Combine(_itemsPath, saveSlot.ToString());
+        var digitPath = Path.Combine(saveSlotPath, digit.ToString());
+        var itemPath = Path.Combine(digitPath, itemId.ToString());
 
         // Ensure directories exist
         CreateDirectoryIfNotExists(saveSlotPath);
@@ -98,10 +98,10 @@ public class FileStorageService : IDisposable
     {
         try
         {
-            string itemPath = GetItemPath(itemId, saveSlot);
-            string metadataPath = Path.Combine(itemPath, "metadata.json");
+            var itemPath = GetItemPath(itemId, saveSlot);
+            var metadataPath = Path.Combine(itemPath, "metadata.json");
 
-            string json = JsonConvert.SerializeObject(metadata, _jsonSettings);
+            var json = JsonConvert.SerializeObject(metadata, _jsonSettings);
             await File.WriteAllTextAsync(metadataPath, json);
         }
         catch (Exception ex)
@@ -117,10 +117,10 @@ public class FileStorageService : IDisposable
     {
         try
         {
-            string itemPath = GetItemPath(itemId, saveSlot);
-            string descriptionPath = Path.Combine(itemPath, "description.json");
+            var itemPath = GetItemPath(itemId, saveSlot);
+            var descriptionPath = Path.Combine(itemPath, "description.json");
 
-            string json = JsonConvert.SerializeObject(description, _jsonSettings);
+            var json = JsonConvert.SerializeObject(description, _jsonSettings);
             await File.WriteAllTextAsync(descriptionPath, json);
         }
         catch (Exception ex)
@@ -141,33 +141,33 @@ public class FileStorageService : IDisposable
                 return;
             }
 
-            string itemPath = GetItemPath(itemId, saveSlot);
-            string imagePath = Path.Combine(itemPath, isPreview ? "preview.png" : "icon.png");
+            var itemPath = GetItemPath(itemId, saveSlot);
+            var imagePath = Path.Combine(itemPath, isPreview ? "preview.png" : "icon.png");
 
             // Get the sprite texture
-            Texture2D sourceTexture = sprite.texture;
+            var sourceTexture = sprite.texture;
 
             // Make texture readable if needed (must be on main thread)
             await UniTask.SwitchToMainThread();
-            Texture2D readableTex = MakeTextureReadable(sourceTexture);
+            var readableTex = MakeTextureReadable(sourceTexture);
 
             // Calculate the sprite's region in the texture
-            Rect textureRect = sprite.textureRect;
-            int x = (int)textureRect.x;
-            int y = (int)textureRect.y;
-            int width = (int)textureRect.width;
-            int height = (int)textureRect.height;
+            var textureRect = sprite.textureRect;
+            var x = (int)textureRect.x;
+            var y = (int)textureRect.y;
+            var width = (int)textureRect.width;
+            var height = (int)textureRect.height;
 
             // Get pixels from the sprite region
-            Color[] pixels = readableTex.GetPixels(x, y, width, height);
+            var pixels = readableTex.GetPixels(x, y, width, height);
 
             // Create new texture with the same pixels
-            Texture2D outputTex = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            var outputTex = new Texture2D(width, height, TextureFormat.RGBA32, false);
             outputTex.SetPixels(pixels);
             outputTex.Apply();
 
             // Encode to PNG
-            byte[] pngData = outputTex.EncodeToPNG();
+            var pngData = outputTex.EncodeToPNG();
 
             // Cleanup textures
             UnityEngine.Object.DestroyImmediate(readableTex);
@@ -194,7 +194,7 @@ public class FileStorageService : IDisposable
         // If texture is already readable, create a copy
         if (sourceTex.isReadable)
         {
-            Texture2D copy = new Texture2D(sourceTex.width, sourceTex.height, TextureFormat.RGBA32, false);
+            var copy = new Texture2D(sourceTex.width, sourceTex.height, TextureFormat.RGBA32, false);
             copy.SetPixels(sourceTex.GetPixels());
             copy.Apply();
             return copy;
@@ -202,7 +202,7 @@ public class FileStorageService : IDisposable
 
         // For non-readable textures, use RenderTexture blit
         // Use sRGB color space to match game's color rendering
-        RenderTexture renderTex = RenderTexture.GetTemporary(
+        var renderTex = RenderTexture.GetTemporary(
             sourceTex.width,
             sourceTex.height,
             0,
@@ -211,10 +211,10 @@ public class FileStorageService : IDisposable
         );
 
         Graphics.Blit(sourceTex, renderTex);
-        RenderTexture previous = RenderTexture.active;
+        var previous = RenderTexture.active;
         RenderTexture.active = renderTex;
 
-        Texture2D readableTex = new Texture2D(sourceTex.width, sourceTex.height, TextureFormat.RGBA32, false);
+        var readableTex = new Texture2D(sourceTex.width, sourceTex.height, TextureFormat.RGBA32, false);
         readableTex.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
         readableTex.Apply();
 
@@ -233,13 +233,13 @@ public class FileStorageService : IDisposable
     {
         try
         {
-            string saveSlotPath = Path.Combine(_historyPath, saveSlot.ToString());
+            var saveSlotPath = Path.Combine(_historyPath, saveSlot.ToString());
             CreateDirectoryIfNotExists(saveSlotPath);
 
-            string filename = $"history_{batch.Timestamp:yyyyMMdd_HHmmss}.json";
-            string filepath = Path.Combine(saveSlotPath, filename);
+            var filename = $"history_{batch.Timestamp:yyyyMMdd_HHmmss}.json";
+            var filepath = Path.Combine(saveSlotPath, filename);
 
-            string json = JsonConvert.SerializeObject(batch, _jsonSettings);
+            var json = JsonConvert.SerializeObject(batch, _jsonSettings);
             await File.WriteAllTextAsync(filepath, json);
 
             Log.Debug($"[DuckyConnector] Written history batch: {filename}");
@@ -258,15 +258,15 @@ public class FileStorageService : IDisposable
     {
         try
         {
-            string itemPath = GetItemPath(itemId, saveSlot);
-            string metadataPath = Path.Combine(itemPath, "metadata.json");
+            var itemPath = GetItemPath(itemId, saveSlot);
+            var metadataPath = Path.Combine(itemPath, "metadata.json");
 
             if (!File.Exists(metadataPath))
             {
                 return null;
             }
 
-            string json = await File.ReadAllTextAsync(metadataPath);
+            var json = await File.ReadAllTextAsync(metadataPath);
             return JsonConvert.DeserializeObject<ItemMetadata>(json);
         }
         catch (Exception ex)

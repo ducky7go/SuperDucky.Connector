@@ -76,12 +76,12 @@ public class ItemAcquisitionMonitor : IDisposable
 
         try
         {
-            int saveSlot = GetCurrentSaveSlot();
+            var saveSlot = GetCurrentSaveSlot();
             var existingItems = new List<ItemAcquisitionData>();
 
             // Collect items from main character inventory
             var mainCharacter = LevelManager.Instance?.MainCharacter;
-            int characterItemCount = 0;
+            var characterItemCount = 0;
             if (mainCharacter?.CharacterItem?.Inventory != null)
             {
                 foreach (var item in mainCharacter.CharacterItem.Inventory)
@@ -108,7 +108,7 @@ public class ItemAcquisitionMonitor : IDisposable
             }
 
             // Collect items from player storage
-            int storageItemCount = 0;
+            var storageItemCount = 0;
             if (PlayerStorage.Inventory != null)
             {
                 foreach (var item in PlayerStorage.Inventory)
@@ -234,8 +234,8 @@ public class ItemAcquisitionMonitor : IDisposable
             return;
         }
 
-        int itemId = item.TypeID;
-        int saveSlot = GetCurrentSaveSlot();
+        var itemId = item.TypeID;
+        var saveSlot = GetCurrentSaveSlot();
 
         lock (_pendingLock)
         {
@@ -245,7 +245,7 @@ public class ItemAcquisitionMonitor : IDisposable
                 _collectedItemsBySaveSlot[saveSlot] = new HashSet<int>();
             }
 
-            bool isNewItem = !_collectedItemsBySaveSlot[saveSlot].Contains(itemId);
+            var isNewItem = !_collectedItemsBySaveSlot[saveSlot].Contains(itemId);
 
             // Add to pending acquisitions
             _pendingAcquisitions.Add(new PendingAcquisition
@@ -317,7 +317,7 @@ public class ItemAcquisitionMonitor : IDisposable
 
         try
         {
-            int saveSlot = GetCurrentSaveSlot();
+            var saveSlot = GetCurrentSaveSlot();
 
             // Group items by type ID (stack same items together)
             var groupedAcquisitions = toFlush

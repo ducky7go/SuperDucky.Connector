@@ -38,7 +38,7 @@ public class ItemDictionaryTracker : IDisposable
             // Switch to ThreadPool to run off the main thread
             await UniTask.SwitchToThreadPool();
 
-            int currentSaveSlot = GetCurrentSaveSlot();
+            var currentSaveSlot = GetCurrentSaveSlot();
             Log.Info($"[DuckyConnector] Starting item collection for save slot {currentSaveSlot}...");
 
             if (!_collectedItems.ContainsKey(currentSaveSlot))
@@ -68,12 +68,12 @@ public class ItemDictionaryTracker : IDisposable
             return;
         }
 
-        int totalCount = collection.entries.Count;
-        int exportCount = 0;
-        int skipCount = 0;
-        int errorCount = 0;
-        int imageExportCount = 0;
-        int imageSkipCount = 0;
+        var totalCount = collection.entries.Count;
+        var exportCount = 0;
+        var skipCount = 0;
+        var errorCount = 0;
+        var imageExportCount = 0;
+        var imageSkipCount = 0;
 
         Log.Info($"[DuckyConnector] Found {totalCount} items in ItemAssetsCollection");
 
@@ -84,12 +84,12 @@ public class ItemDictionaryTracker : IDisposable
                 continue;
             }
 
-            Item item = entry.prefab;
-            int itemId = item.TypeID;
+            var item = entry.prefab;
+            var itemId = item.TypeID;
 
             try
             {
-                bool exported = await ExportItemIfChangedAsync(item, saveSlot);
+                var exported = await ExportItemIfChangedAsync(item, saveSlot);
                 if (exported)
                 {
                     exportCount++;
@@ -117,6 +117,59 @@ public class ItemDictionaryTracker : IDisposable
             }
         }
 
+
+        if (typeof(ItemAssetsCollection).GetField("dynamicDic",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
+                ?.GetValue(null) is Dictionary<int, ItemAssetsCollection.DynamicEntry> dynamicEntities)
+        {
+            totalCount += dynamicEntities.Count;
+            Log.Info($"[DuckyConnector] Found {dynamicEntities.Count} dynamic items in dynamicDic");
+            foreach (var kvp in dynamicEntities)
+            {
+                var dynamicEntry = kvp.Value;
+                if (dynamicEntry.prefab == null)
+                {
+                    continue;
+                }
+
+                var item = dynamicEntry.prefab;
+                var itemId = item.TypeID;
+
+                try
+                {
+                    var exported = await ExportItemIfChangedAsync(item, saveSlot);
+                    if (exported)
+                    {
+                        exportCount++;
+                        // Count successful image exports
+                        if (item.Icon != null && item.Icon.texture != null && item.Icon.texture.isReadable)
+                        {
+                            imageExportCount++;
+                        }
+                        else
+                        {
+                            imageSkipCount++;
+                        }
+                    }
+                    else
+                    {
+                        skipCount++;
+                    }
+
+                    _collectedItems[saveSlot].Add(itemId.ToString());
+                }
+                catch (Exception ex)
+                {
+                    errorCount++;
+                    Log.Error($"[DuckyConnector] Error exporting dynamic item {itemId}: {ex.Message}");
+                }
+            }
+        }
+        else
+        {
+            Log.Warn("[DuckyConnector] Could not access dynamicDic for dynamic items");
+        }
+
         // Log comprehensive statistics
         Log.Info("========================================");
         Log.Info("[DuckyConnector] Item Collection Summary");
@@ -137,11 +190,11 @@ public class ItemDictionaryTracker : IDisposable
     /// </summary>
     private async Task<bool> ExportItemIfChangedAsync(Item item, int saveSlot)
     {
-        int itemId = item.TypeID;
-        ItemMetadata? existingMetadata = await _storageService.ReadItemMetadataAsync(itemId, saveSlot);
+        var itemId = item.TypeID;
+        var existingMetadata = await _storageService.ReadItemMetadataAsync(itemId, saveSlot);
 
         // Create new metadata from current item state
-        ItemMetadata newMetadata = CreateItemMetadata(item, existingMetadata);
+        var newMetadata = CreateItemMetadata(item, existingMetadata);
 
         // Check if item has changed
         if (existingMetadata != null && !HasItemChanged(item, existingMetadata))
@@ -160,8 +213,8 @@ public class ItemDictionaryTracker : IDisposable
     /// </summary>
     private ItemMetadata CreateItemMetadata(Item item, ItemMetadata? existingMetadata)
     {
-        DateTime now = DateTime.UtcNow;
-        DateTime firstSeenAt = existingMetadata?.FirstSeenAt ?? now;
+        var now = DateTime.UtcNow;
+        var firstSeenAt = existingMetadata?.FirstSeenAt ?? now;
 
         // Collect stats
         var stats = new Dictionary<string, float>();
@@ -277,7 +330,7 @@ public class ItemDictionaryTracker : IDisposable
             {
                 if (stat != null && !string.IsNullOrEmpty(stat.Key))
                 {
-                    bool statExists = existing.Stats.TryGetValue(stat.Key, out float existingValue);
+                    var statExists = existing.Stats.TryGetValue(stat.Key, out var existingValue);
                     if (!statExists || Math.Abs(stat.Value - existingValue) > 0.01f)
                     {
                         Log.Debug($"[DuckyConnector] Item {item.TypeID} changed: Stats[{stat.Key}]");
@@ -295,13 +348,13 @@ public class ItemDictionaryTracker : IDisposable
     /// </summary>
     private async Task ExportItemAsync(Item item, int saveSlot, ItemMetadata metadata)
     {
-        int itemId = item.TypeID;
+        var itemId = item.TypeID;
 
         // Write metadata
         await _storageService.WriteItemMetadataAsync(itemId, saveSlot, metadata);
 
         // Write description (multi-language)
-        ItemDescription description = CreateItemDescription(item);
+        var description = CreateItemDescription(item);
         await _storageService.WriteItemDescriptionAsync(itemId, saveSlot, description);
 
         // Write images
