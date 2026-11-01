@@ -1,25 +1,11 @@
-<!-- OPENSPEC:START -->
-# OpenSpec Instructions
+## OpenSpec
 
-These instructions are for AI assistants working in this project.
+This repo has no `openspec/` directory. OpenSpec for all `ducky7go-mono` sub-repos lives in the parent repo: `../../openspec/` (workflow rules `../../openspec/AGENTS.md`, specs `../../openspec/specs/`, changes `../../openspec/changes/`). This repo's former project context is `../../openspec/projects/SuperDucky.Connector/project.md`.
 
-Always open `@/openspec/AGENTS.md` when the request:
-- Mentions planning or proposals (words like proposal, spec, change, plan)
-- Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
-- Sounds ambiguous and you need the authoritative spec before coding
-
-Use `@/openspec/AGENTS.md` to learn:
-- How to create and apply change proposals
-- Spec format and conventions
-- Project structure and guidelines
-
-Keep this managed block so 'openspec update' can refresh the instructions.
-
-<!-- OPENSPEC:END -->
 
 # SuperDucky.Connector
 
-See `openspec/AGENTS.md` for the spec-driven workflow and `openspec/project.md` for project context.
+See `../../openspec/AGENTS.md` for the spec-driven workflow and `../../openspec/projects/SuperDucky.Connector/project.md` for project context.
 
 ## Project overview
 
@@ -34,7 +20,7 @@ A mod for the Unity game "Escape from Duckov", built on **Ducky.Sdk** (0.1.8, `D
   - `Docs/data-structure.md`, `Docs/api-examples.md` documented on-disk data format for external consumers
 - `scripts/` `fetch_build_dependency.sh` (downloads `Managed/` game assemblies from `ducky7go/sdk_build_dependency` releases), `setup_build_tools.sh`
 - Root: `SuperDucky.Connector.slnx`, `Directory.Build.props`, `Directory.Packages.props` (central package management), `global.json` (SDK 9.0.301), `GitVersion.yml`, `nuget.config` (MyGet feed only for `Ducky.Sdk`, nuget.org for the rest)
-- `openspec/specs/`: `ci-cd`, `module-metadata`, `nuget-packaging`; `openspec/changes/archive/` has 4 archived changes
+- `../../openspec/specs/`: `superducky.connector-ci-cd`, `module-metadata`, `nuget-packaging`; `../../openspec/changes/archive/` has 4 archived changes
 
 ## Build / test / run
 
@@ -43,7 +29,7 @@ CI builds like this (see `.github/workflows/publish.yml` and `pr-build-validatio
 2. install global tools `dotnet-script` 1.5.0 and `dotnet-ilrepack` 2.0.44 (`scripts/setup_build_tools.sh` does the same locally)
 3. `CI=true dotnet build SuperDucky.Connector/SuperDucky.Connector.csproj -p:PackageVersion=<ver> -p:Configuration=Release` - output goes to `artifacts/Mods/SuperDucky.Connector/` (Ducky.Sdk uses the git root when `CI` is set, see comments in `Directory.Build.props`)
 
-Locally, `Directory.Build.props` imports an optional `Directory.Build.local.props` and the csproj an optional `../Local.props` (git-ignored) for machine-specific game paths. There is no test project in the repo (`openspec/project.md` mentions NUnit/`dotnet test`, but none exists).
+Locally, `Directory.Build.props` imports an optional `Directory.Build.local.props` and the csproj an optional `../Local.props` (git-ignored) for machine-specific game paths. There is no test project in the repo (`../../openspec/projects/SuperDucky.Connector/project.md` mentions NUnit/`dotnet test`, but none exists).
 
 ## CI / release
 
@@ -54,19 +40,19 @@ Locally, `Directory.Build.props` imports an optional `Directory.Build.local.prop
 ## Conventions
 
 - Target `netstandard2.1`, `LangVersion preview`, nullable enabled, implicit usings.
-- Log prefix used in code: `[DuckyConnector]`. Unity API calls on textures must stay on the main thread (per `openspec/project.md`).
+- Log prefix used in code: `[DuckyConnector]`. Unity API calls on textures must stay on the main thread (per `../../openspec/projects/SuperDucky.Connector/project.md`).
 - Changing the on-disk format means updating `Docs/data-structure.md` and `Docs/api-examples.md`, since external tools depend on them.
 - Mod descriptions are bilingual (`assets/description/en.md`, `zh.md`).
 - Commit style in this shallow clone: `docs(connector): ...` (conventional commits with PR number).
 
 ## Gotchas
 
-- `openspec/project.md` is partly stale: it says publishing uses a `NUGET_KEY` secret (workflow uses OIDC + `NUGET_USER`) and calls the mod a BepInEx plugin (code derives from `ModBehaviourBase` from Ducky.Sdk).
+- `../../openspec/projects/SuperDucky.Connector/project.md` is partly stale: it says publishing uses a `NUGET_KEY` secret (workflow uses OIDC + `NUGET_USER`) and calls the mod a BepInEx plugin (code derives from `ModBehaviourBase` from Ducky.Sdk).
 - `info.ini` has `version = 0.1.0`; CI overwrites it at build time, so do not bump it by hand for releases.
 - The build needs network access (MyGet, nuget.org, GitHub) and the `Managed/` assemblies; do not expect a plain `dotnet build` to work on a fresh clone.
 
 ## Related repositories (ducky7go)
 
-- `DML` - the SuperDucky desktop app; it detects this mod (>= 1.0.0) for its save gallery and as a launcher dependency (`DML/openspec/specs/save-gallery`, `game-convenience`).
+- `DML` - the SuperDucky desktop app; it detects this mod (>= 1.0.0) for its save gallery and as a launcher dependency (`../../openspec/specs/save-gallery`, `game-convenience`).
 - `SuperDucky.docs` - user docs for the app (has an `enable-save-gallery` guide, which does not name this mod).
 - `Ducky.Sdk` and `sdk_build_dependency` - SDK and game assemblies this mod builds against; `action-ducky-nuget` packs it.
