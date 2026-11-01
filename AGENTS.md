@@ -5,8 +5,6 @@ This repo has no `openspec/` directory. OpenSpec for all `ducky7go-mono` sub-rep
 
 # SuperDucky.Connector
 
-See `../../openspec/AGENTS.md` for the spec-driven workflow and `../../openspec/projects/SuperDucky.Connector/project.md` for project context.
-
 ## Project overview
 
 A mod for the Unity game "Escape from Duckov", built on **Ducky.Sdk** (0.1.8, `Directory.Packages.props`). It exports an item encyclopedia (JSON metadata, multi-language descriptions, PNG icons) and records item acquisition history to files under the system temp directory, so external tools can read them. It is shipped as a NuGet package (`info.ini` metadata, packed by `ducky7go/action-ducky-nuget`). Its mod name is `SuperDucky.Connector`, license MIT.
@@ -43,7 +41,7 @@ Locally, `Directory.Build.props` imports an optional `Directory.Build.local.prop
 - Log prefix used in code: `[DuckyConnector]`. Unity API calls on textures must stay on the main thread (per `../../openspec/projects/SuperDucky.Connector/project.md`).
 - Changing the on-disk format means updating `Docs/data-structure.md` and `Docs/api-examples.md`, since external tools depend on them.
 - Mod descriptions are bilingual (`assets/description/en.md`, `zh.md`).
-- Commit style in this shallow clone: `docs(connector): ...` (conventional commits with PR number).
+- Commit style: `docs(connector): ...` (conventional commits with PR number).
 
 ## Gotchas
 
