@@ -1,6 +1,6 @@
 ## OpenSpec
 
-This repo has no `openspec/` directory. OpenSpec for all `ducky7go-mono` sub-repos lives in the parent repo: `../../openspec/` (workflow rules `../../openspec/AGENTS.md`, specs `../../openspec/specs/`, changes `../../openspec/changes/`). This repo's former project context is `../../openspec/projects/SuperDucky.Connector/project.md`.
+This repo has no `openspec/` directory. OpenSpec for all `ducky7go-mono` sub-repos lives in the parent repo: `../../openspec/` (workflow rules `../../openspec/AGENTS.md`, specs `../../openspec/specs/`, changes `../../openspec/changes/`).
 
 
 # SuperDucky.Connector
@@ -27,7 +27,7 @@ CI builds like this (see `.github/workflows/publish.yml` and `pr-build-validatio
 2. install global tools `dotnet-script` 1.5.0 and `dotnet-ilrepack` 2.0.44 (`scripts/setup_build_tools.sh` does the same locally)
 3. `CI=true dotnet build SuperDucky.Connector/SuperDucky.Connector.csproj -p:PackageVersion=<ver> -p:Configuration=Release` - output goes to `artifacts/Mods/SuperDucky.Connector/` (Ducky.Sdk uses the git root when `CI` is set, see comments in `Directory.Build.props`)
 
-Locally, `Directory.Build.props` imports an optional `Directory.Build.local.props` and the csproj an optional `../Local.props` (git-ignored) for machine-specific game paths. There is no test project in the repo (`../../openspec/projects/SuperDucky.Connector/project.md` mentions NUnit/`dotnet test`, but none exists).
+Locally, `Directory.Build.props` imports an optional `Directory.Build.local.props` and the csproj an optional `../Local.props` (git-ignored) for machine-specific game paths. There is no test project in the repo.
 
 ## CI / release
 
@@ -38,14 +38,13 @@ Locally, `Directory.Build.props` imports an optional `Directory.Build.local.prop
 ## Conventions
 
 - Target `netstandard2.1`, `LangVersion preview`, nullable enabled, implicit usings.
-- Log prefix used in code: `[DuckyConnector]`. Unity API calls on textures must stay on the main thread (per `../../openspec/projects/SuperDucky.Connector/project.md`).
+- Log prefix used in code: `[DuckyConnector]`. Unity API calls on textures must stay on the main thread.
 - Changing the on-disk format means updating `Docs/data-structure.md` and `Docs/api-examples.md`, since external tools depend on them.
 - Mod descriptions are bilingual (`assets/description/en.md`, `zh.md`).
 - Commit style: `docs(connector): ...` (conventional commits with PR number).
 
 ## Gotchas
 
-- `../../openspec/projects/SuperDucky.Connector/project.md` is partly stale: it says publishing uses a `NUGET_KEY` secret (workflow uses OIDC + `NUGET_USER`) and calls the mod a BepInEx plugin (code derives from `ModBehaviourBase` from Ducky.Sdk).
 - `info.ini` has `version = 0.1.0`; CI overwrites it at build time, so do not bump it by hand for releases.
 - The build needs network access (MyGet, nuget.org, GitHub) and the `Managed/` assemblies; do not expect a plain `dotnet build` to work on a fresh clone.
 
