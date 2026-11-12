@@ -1,18 +1,49 @@
 {
-  "_note": "Steam preview redrawn with the Agent Girl rule (steam-metadata). Base = art/preview-base.png (rendered by the Codex CLI image_gen tool, one picture per run, no seed; the Codex run used a layout/style reference picture from Newbe.UtilityMods Newbe.RealisticFlashGrenade); preview.png = compose-preview.sh over the base. Replaces the earlier duck-only preview.",
-  "agentId": "series-gemini",
-  "variants": {
-    "preview": {
-      "provider": "codex",
-      "prompt": "Use the built-in image_gen tool to generate exactly one image. Do not use a CLI, a script or an API for it, and do not write any file yourself.\nCompose the image for a 1344x768 canvas (aspect ratio 1344:768). The attached picture is only a reference for the art style and the layout: modern anime illustration, flat colours, bold dark outlines, expressive face, upper-body framing, one girl filling the whole left half of the frame from the top edge to the bottom edge, large and cropped by the frame, with a broad, calm, softly shaded dark wall on the upper and middle right and a quiet, plain dark surface in the lower-right corner. The girl in the attached picture is a different character; draw the new character described below instead.\nCharacter: Gemini girl: blonde hair with a gold star hair clip, blue eyes, midnight indigo jacket over a pale lavender collared shirt, a small gold star charm on the lapel, bright smile.\nScene: She aims a glowing handheld scanner device at the viewer's side while icons of crates, potion bottles and gems stream into it, and a big open illustrated encyclopedia book glows in her other hand. Blue light comes from the scanner and warm golden light rims her against deep navy shadows.\nKeep her hands, face, signature accessory and the feature props inside the left half of the frame. Keep the right half of the frame calm and uncluttered with soft gradient light.\nAvoid: text, letters, logo, watermark, signature, border, frame, extra characters, animals, tiny figure.\nWhen the image is ready, reply with its absolute file path and nothing else.\n",
-      "width": 1344,
-      "height": 768,
-      "format": "png"
-    }
+  "agentId": "series-qwen",
+  "agentDisplayName": "Qwen girl",
+  "agentLook": "blue hair in double buns with a tassel, green eyes, indigo high-collared jacket, pale celadon trim, small porcelain cloud pattern at the collar, serene smile",
+  "feature": "exports all game items and tracks collection progress",
+  "titleZh": "数据链接",
+  "titleEn": "Super Ducky Connector",
+  "positivePrompt": "A modern digital anime illustration with clean cel-shaded lines and soft cinematic lighting, colour palette of blue-green data light and indigo, in the playful world of the extraction game Escape from Duckov. One teenage girl, blue hair in double buns with a tassel, green eyes, indigo high-collared jacket, pale celadon trim, small porcelain cloud pattern at the collar, serene smile. She fills the whole left side of the frame, the left 48 percent of the width, from the top edge to the bottom edge: large and cropped by the frame, her head near the top edge and her body reaching the bottom edge, in an upper-body shot. Her action: she plugs a glowing data cable into a small duck-shaped terminal device, with a gentle smile. The setting on the left is a clean display hall with glass shelves, holographic item cards of a gun, a bag and a key streaming toward the shelves, with the props and effects spread across the left panel, kept clear of the right half. The right half of the frame is a broad, softly shaded dark wall in the same colour palette, calm and low in detail, an empty surface with no objects. The lower right corner is a quiet dark surface. The image contains no text, no letters, no numbers, no logos and no watermark anywhere. Landscape 16:9 composition.",
+  "negativePrompt": "text, letters, digits, numbers, logo, watermark, signature, captions, extra girls, small figure, distant figure, tiny figure, empty scene, photo-realistic, 3d render",
+  "tool": "codex-image.mjs (img-gen, Codex image_gen)",
+  "size": "1344x768",
+  "renderEnvironment": "codex",
+  "rendersTried": 1,
+  "keptRender": "art/preview-base.png",
+  "codexCopy": "/home/newbe36524/.codex/generated_images/01a1d143-5ec0-70f0-ba78-2ba551763203/exec-31f1228b-c1a2-4df7-8dbe-4935f36cd4bc.png",
+  "compose": "steam-metadata/scripts/compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh 数据链接 --title-en 'Super Ducky Connector'",
+  "gif": {
+    "lines": [
+      [
+        "导出全部物品",
+        "Exports every item"
+      ],
+      [
+        "实时收集进度",
+        "Tracks collection live"
+      ]
+    ],
+    "sparkles": [
+      [
+        420,
+        636,
+        34
+      ],
+      [
+        410,
+        450,
+        22
+      ]
+    ]
   },
-  "titles": {
-    "zh_preview": "物品图鉴导出",
-    "en_preview": "Item Encyclopedia Export"
-  },
-  "compose": "compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh <zh_preview> --title-en <en_preview>"
+  "gifRecord": {
+    "width": 672,
+    "height": 384,
+    "colors": 192,
+    "frames": 29,
+    "seconds": 4.24,
+    "bytes": 676153
+  }
 }
