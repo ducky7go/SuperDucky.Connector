@@ -13,7 +13,7 @@
   "rendersTried": 1,
   "keptRender": "art/preview-base.png",
   "codexCopy": "/home/newbe36524/.codex/generated_images/01a1d143-5ec0-70f0-ba78-2ba551763203/exec-31f1228b-c1a2-4df7-8dbe-4935f36cd4bc.png",
-  "compose": "steam-metadata/scripts/compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh 数据链接 --title-en 'Super Ducky Connector'",
+  "compose": "steam-metadata/scripts/compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh 数据链接 --title-en 'Super Ducky Connector' --mod-id 'SuperDucky.Connector' --agent series-qwen",
   "gif": {
     "lines": [
       [
@@ -44,6 +44,6 @@
     "colors": 192,
     "frames": 29,
     "seconds": 4.24,
-    "bytes": 676153
+    "bytes": 617912
   }
 }

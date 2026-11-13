@@ -1,0 +1,12 @@
+{
+  "rule": "frame style = sha256(package name) mod 10, see steam-metadata/references/preview-image.md",
+  "modId": "SuperDucky.Connector",
+  "agent": "series-qwen",
+  "frameStyle": "glass",
+  "frameIndex": 7,
+  "modIdSha256": "14a10b44fe0e0671447be0ba333cc8e1b201a503f0905e8930625e48a9d53faa",
+  "size": [
+    1344,
+    768
+  ]
+}
