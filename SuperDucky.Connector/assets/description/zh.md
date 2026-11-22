@@ -1,6 +1,6 @@
 # SuperDucky.Connector
 
-![](https://images.steamusercontent.com/ugc/15042342058453021151/403261AEA735670159C5E1EDF0D1AE33B377CFD0/)
+![](https://images.steamusercontent.com/ugc/18047838198338728019/403261AEA735670159C5E1EDF0D1AE33B377CFD0/)
 
 ## 功能
 
@@ -31,4 +31,4 @@
 
 外部工具可以读取这些数据来显示物品信息、分析您的收集进度，或与其他应用程序集成。
 
-![](https://images.steamusercontent.com/ugc/15042342058453021151/403261AEA735670159C5E1EDF0D1AE33B377CFD0/)
+![](https://images.steamusercontent.com/ugc/18047838198338728019/403261AEA735670159C5E1EDF0D1AE33B377CFD0/)

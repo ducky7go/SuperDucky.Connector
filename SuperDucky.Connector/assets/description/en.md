@@ -1,6 +1,6 @@
 # SuperDucky.Connector
 
-![](https://images.steamusercontent.com/ugc/11888635750781687702/3B90F34BE5A14BFCA5D07B129E1CFAED967B9713/)
+![](https://images.steamusercontent.com/ugc/10633657683393242646/3B90F34BE5A14BFCA5D07B129E1CFAED967B9713/)
 
 ## Features
 
@@ -31,4 +31,4 @@ All exported data is saved in the system temp directory under `SuperDucky.Connec
 
 External tools can read this data to display item information, analyze your collection progress, or integrate with other applications.
 
-![](https://images.steamusercontent.com/ugc/11888635750781687702/3B90F34BE5A14BFCA5D07B129E1CFAED967B9713/)
+![](https://images.steamusercontent.com/ugc/10633657683393242646/3B90F34BE5A14BFCA5D07B129E1CFAED967B9713/)
