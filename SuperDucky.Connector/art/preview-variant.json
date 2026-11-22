@@ -1,19 +1,15 @@
 {
-  "agentId": "series-qwen",
   "agentDisplayName": "Qwen girl",
   "agentLook": "blue hair in double buns with a tassel, green eyes, indigo high-collared jacket, pale celadon trim, small porcelain cloud pattern at the collar, serene smile",
   "feature": "exports all game items and tracks collection progress",
+  "mod": "SuperDucky.Connector",
+  "coverFeature": {
+    "zh": "导出全部物品",
+    "en": "Exports every item"
+  },
   "titleZh": "数据链接",
   "titleEn": "Super Ducky Connector",
-  "positivePrompt": "A modern digital anime illustration with clean cel-shaded lines and soft cinematic lighting, colour palette of blue-green data light and indigo, in the playful world of the extraction game Escape from Duckov. One teenage girl, blue hair in double buns with a tassel, green eyes, indigo high-collared jacket, pale celadon trim, small porcelain cloud pattern at the collar, serene smile. She fills the whole left side of the frame, the left 48 percent of the width, from the top edge to the bottom edge: large and cropped by the frame, her head near the top edge and her body reaching the bottom edge, in an upper-body shot. Her action: she plugs a glowing data cable into a small duck-shaped terminal device, with a gentle smile. The setting on the left is a clean display hall with glass shelves, holographic item cards of a gun, a bag and a key streaming toward the shelves, with the props and effects spread across the left panel, kept clear of the right half. The right half of the frame is a broad, softly shaded dark wall in the same colour palette, calm and low in detail, an empty surface with no objects. The lower right corner is a quiet dark surface. The image contains no text, no letters, no numbers, no logos and no watermark anywhere. Landscape 16:9 composition.",
-  "negativePrompt": "text, letters, digits, numbers, logo, watermark, signature, captions, extra girls, small figure, distant figure, tiny figure, empty scene, photo-realistic, 3d render",
-  "tool": "codex-image.mjs (img-gen, Codex image_gen)",
-  "size": "1344x768",
-  "renderEnvironment": "codex",
-  "rendersTried": 1,
-  "keptRender": "art/preview-base.png",
-  "codexCopy": "/home/newbe36524/.codex/generated_images/01a1d143-5ec0-70f0-ba78-2ba551763203/exec-31f1228b-c1a2-4df7-8dbe-4935f36cd4bc.png",
-  "compose": "steam-metadata/scripts/compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh 数据链接 --title-en 'Super Ducky Connector' --mod-id 'SuperDucky.Connector' --agent series-qwen",
+  "agentId": "series-qwen",
   "gif": {
     "lines": [
       [
@@ -27,23 +23,124 @@
     ],
     "sparkles": [
       [
-        420,
-        636,
-        34
+        508,
+        1068,
+        25
       ],
       [
-        410,
-        450,
-        22
+        528,
+        1136,
+        17
       ]
     ]
   },
+  "compose": "sh steam-metadata/scripts/compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh '数据链接' --title-en 'Super Ducky Connector' --mod-id SuperDucky.Connector --agent series-qwen --feature-zh '导出全部物品' --feature-en 'Exports every item'",
+  "composeRecord": {
+    "titleZh": "数据链接",
+    "titleEn": "Super Ducky Connector",
+    "charactersZh": 4,
+    "charactersEn": 21,
+    "fontZh": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "fontEn": "/usr/share/fonts/aajohan-comfortaa-fonts/Comfortaa-Bold.otf",
+    "fontFaceZh": "Noto-Sans-CJK-SC-Bold",
+    "fontFaceEn": "/usr/share/fonts/aajohan-comfortaa-fonts/Comfortaa-Bold.otf",
+    "fontWeightZh": 700,
+    "fontWeightEn": 700,
+    "panelX": 660,
+    "panelY": 161,
+    "panelWidth": 650,
+    "panelHeight": 994,
+    "layout": "left-action-right-language-halves",
+    "dividerY": 658,
+    "featureZh": "导出全部物品",
+    "featureEn": "Exports every item",
+    "titleYZh": 289,
+    "titleHeightZh": 135,
+    "linesZh": 1,
+    "pointsizeZh": 140,
+    "featureYZh": 456,
+    "featureHeightZh": 73,
+    "featureLinesZh": 1,
+    "featurePointsizeZh": 74,
+    "titleYEn": 766,
+    "titleHeightEn": 189,
+    "linesEn": 2,
+    "pointsizeEn": 92,
+    "featureYEn": 987,
+    "featureHeightEn": 59,
+    "featureLinesEn": 1,
+    "featurePointsizeEn": 58,
+    "pngStage": "precision-6bit",
+    "pngBytes": 944416
+  },
+  "previousLandscapeRender": {
+    "agentId": "series-qwen",
+    "titleZh": "数据链接",
+    "titleEn": "Super Ducky Connector",
+    "positivePrompt": "A modern digital anime illustration with clean cel-shaded lines and soft cinematic lighting, colour palette of blue-green data light and indigo, in the playful world of the extraction game Escape from Duckov. One teenage girl, blue hair in double buns with a tassel, green eyes, indigo high-collared jacket, pale celadon trim, small porcelain cloud pattern at the collar, serene smile. She fills the whole left side of the frame, the left 48 percent of the width, from the top edge to the bottom edge: large and cropped by the frame, her head near the top edge and her body reaching the bottom edge, in an upper-body shot. Her action: she plugs a glowing data cable into a small duck-shaped terminal device, with a gentle smile. The setting on the left is a clean display hall with glass shelves, holographic item cards of a gun, a bag and a key streaming toward the shelves, with the props and effects spread across the left panel, kept clear of the right half. The right half of the frame is a broad, softly shaded dark wall in the same colour palette, calm and low in detail, an empty surface with no objects. The lower right corner is a quiet dark surface. The image contains no text, no letters, no numbers, no logos and no watermark anywhere. Landscape 16:9 composition.",
+    "negativePrompt": "text, letters, digits, numbers, logo, watermark, signature, captions, extra girls, small figure, distant figure, tiny figure, empty scene, photo-realistic, 3d render",
+    "tool": "codex-image.mjs (img-gen, Codex image_gen)",
+    "size": "1344x768",
+    "renderEnvironment": "codex",
+    "rendersTried": 1,
+    "keptRender": "art/preview-base.png",
+    "codexCopy": "/home/newbe36524/.codex/generated_images/01a1d143-5ec0-70f0-ba78-2ba551763203/exec-31f1228b-c1a2-4df7-8dbe-4935f36cd4bc.png",
+    "compose": "steam-metadata/scripts/compose-preview.sh --base art/preview-base.png --out assets/preview.png --title-zh 数据链接 --title-en 'Super Ducky Connector' --mod-id 'SuperDucky.Connector' --agent series-qwen",
+    "gif": {
+      "lines": [
+        [
+          "导出全部物品",
+          "Exports every item"
+        ],
+        [
+          "实时收集进度",
+          "Tracks collection live"
+        ]
+      ],
+      "sparkles": [
+        [
+          420,
+          636,
+          34
+        ],
+        [
+          410,
+          450,
+          22
+        ]
+      ]
+    },
+    "gifRecord": {
+      "width": 672,
+      "height": 384,
+      "colors": 192,
+      "frames": 29,
+      "seconds": 4.24,
+      "bytes": 617912
+    }
+  },
+  "gifCommand": "python3 steam-metadata/scripts/make-preview-gif.py --base art/preview-base.png --preview assets/preview.png --out assets/preview.gif --variant art/preview-variant.json --record art/preview-gif.json",
+  "squareRender": {
+    "renderEnvironment": "Codex image_gen via img-gen",
+    "canvas": [
+      1344,
+      1344
+    ],
+    "key": "superducky-connector",
+    "artSource": "art/preview-base.png",
+    "figureAction": "connects her item catalogue tablet to the terminal",
+    "visibleResult": "A stack of small item icons flows across the link into a collection grid with a green progress segment",
+    "positivePrompt": "masterpiece, best quality, safe, 1girl, solo, editorial cel-shaded anime game illustration, Illustrate one continuous square scene for a workshop cover. The character has blue hair in double buns with a tassel, green eyes, indigo high-collared jacket, pale celadon trim, small porcelain cloud pattern at the collar, serene smile. An in-game collection cabinet stands beside a tabletop terminal. She connects her item catalogue tablet to the terminal, with a focused friendly expression. A stack of small item icons flows across the link into a collection grid with a green progress segment. Use a close composition, with her face near the upper left and the hand, prop and visible result large and distinct in the lower left. Stage all figures and focal objects within the leftmost 46 percent. The right 52 percent is a continuous empty dark midnight-indigo gradient, smooth and deeply shaded from top to bottom for later typography. Use crisp clean contours, a refined game key-art finish, and one warm directional light.",
+    "negativePrompt": "worst quality, low quality, watermark, logo, text, letters, digits, bad anatomy, bad hands, deformed face, distant figure, extra person, centered character, character on the right, bright right half, patterned right half, frame, border, inset panel, comic panels, collage, split screen, blood, orange hair, black hair, cat ears, hat",
+    "renderSha256": "ece64e83537fc118ceeead8a38439534728be00d2f68ff4d7fa16dd3870ce1ae"
+  },
   "gifRecord": {
-    "width": 672,
-    "height": 384,
-    "colors": 192,
+    "width": 1152,
+    "height": 1152,
+    "colors": 128,
     "frames": 29,
     "seconds": 4.24,
-    "bytes": 617912
+    "bytes": 665598,
+    "font": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc"
   }
 }
